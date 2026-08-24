@@ -1,10 +1,10 @@
-# 🎯 Number Guessing Game
+Number Guessing Game
 
 A simple interactive **Python command-line number guessing game** where the player tries to guess a randomly generated number between **1 and 100**.
 
 The game includes different difficulty levels, limited attempts, score tracking, input validation, and the option to play multiple rounds.
 
-## 🚀 Features
+ Features
 
 * 🎲 Randomly generated numbers
 * 🎚️ Three difficulty levels:
@@ -19,7 +19,7 @@ The game includes different difficulty levels, limited attempts, score tracking,
 * 🔄 Play again option
 * 📊 Tracks attempts and remaining score
 
-## 🛠️ Technologies Used
+ Technologies Used
 
 * **Python 3**
 * `random` module
