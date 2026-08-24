@@ -1,86 +1,107 @@
-
 import random
 
 
-while True:
+def choose_difficulty():
+    """Let the player choose a difficulty level."""
+    print("\nChoose difficulty:")
+    print("1. Easy - 10 attempts")
+    print("2. Medium - 7 attempts")
+    print("3. Hard - 5 attempts")
 
+    while True:
+        difficulty = input("Choose 1, 2, or 3: ").strip()
+
+        if difficulty == "1":
+            return "Easy", 10, 5
+        elif difficulty == "2":
+            return "Medium", 7, 10
+        elif difficulty == "3":
+            return "Hard", 5, 20
+        else:
+            print("Invalid choice. Please choose 1, 2, or 3.")
+
+
+def get_guess():
+    """Get and validate the player's guess."""
+    while True:
+        try:
+            guess = int(input("Guess the number (1-100): "))
+
+            if 1 <= guess <= 100:
+                return guess
+
+            print("Please enter a number between 1 and 100.")
+
+        except ValueError:
+            print("Invalid input. Please enter a whole number.")
+
+
+def play_game():
+    """Run one round of the guessing game."""
     secret_number = random.randint(1, 100)
 
-print("==")
-print("number guessing game")
-print("===")
+    difficulty, max_attempts, penalty = choose_difficulty()
 
-    # print("Secret number:", secret_number)
+    score = 100
+    attempts = 0
 
+    print(f"\nDifficulty: {difficulty}")
+    print(f"You have {max_attempts} attempts.")
+    print(f"Starting score: {score}")
 
-# print("Secret number:", secret_number)
+    while attempts < max_attempts:
+        guess = get_guess()
+        attempts += 1
 
-print("Choose difficulty:")
-print("1. Easy - 10 attempts")
-print("2. Medium - 7 attempts")
-print("3. Hard - 5 attempts")
+        if guess == secret_number:
+            print("\n🎉 Correct!")
+            print(f"The number was {secret_number}.")
+            print(f"Attempts used: {attempts}")
+            print(f"Final score: {score}")
+            return
 
-difficulty = input("Choose 1, 2, or 3: ")
+        score = max(0, score - penalty)
 
-score = 100
+        if guess > secret_number:
+            print("Too High!")
+        else:
+            print("Too Low!")
 
-if difficulty == "1":
-    max_attempts = 10
-    print("score:", score)
-elif difficulty == "2":
-    max_attempts = 7
-    
-    print("score:", score)
-elif difficulty == "3":
-    max_attempts = 5
+        print(f"Attempts remaining: {max_attempts - attempts}")
+        print(f"Current score: {score}")
 
-    print("score:", score)
-else:
-    print("Invalid choice. Using Easy.")
-    max_attempts = 10
-
-attempts = 0
-
-# while True:
-    # guess = int(input("Guess the number: "))
-while attempts < max_attempts:
-    guess = int(input("Guess the number: "))
-    attempts += 1
-
-    if guess == secret_number:
-        print("Correct!")
-        print("Attempts:", attempts)
-        score -= 10
-        print("score:", score)
-        break
-
-    elif guess > secret_number:
-        print("Too High!")
-        print("Attempts:", attempts)
-        score -= 10
-        print("score:", score)
-
-    else:
-        print("Too Low!")
-        print("Attempts:", attempts)
-        score -= 10
-        print("score:", score)
-
-    if attempts == max_attempts:
-        print("Game over!")
-        print("The secret number was:", secret_number)
-        
-print("\nThanks for playing!")
-while True:
+    print("\nGame Over!")
+    print(f"The secret number was: {secret_number}")
+    print(f"Final score: {score}")
 
 
-    print("\nThanks for playing!")
+def main():
+    """Start and control the game."""
+    print("============================")
+    print("     NUMBER GUESSING GAME")
+    print("============================")
 
-    play_again = input("Would you like to play again? (y/n): ").lower()
+    while True:
+        play_game()
 
-    if play_again == "y":
-        print("starting a new game...")
-        continue
-    else:
-        print("Goodbye!")
-        break
+        while True:
+            play_again = input(
+                "\nWould you like to play again? (y/n): "
+            ).strip().lower()
+
+            if play_again == "y":
+                print("\nStarting a new game...")
+                break
+
+            elif play_again == "n":
+                print("\nThanks for playing!")
+                print("Goodbye!")
+                return
+
+            else:
+                print("Please enter 'y' or 'n'.")
+
+
+if __name__ == "__main__":
+    main()
+
